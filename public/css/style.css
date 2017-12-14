@@ -1,0 +1,38 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.outer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.alert{
+  display: flex;
+}
+.alert>a{
+  margin-left: auto;
+}
+.action-button{
+    display: flex;
+    flex-direction: row;
+}
+#well-bottom{
+  display: flex;
+  flex-direction: row;
+}
+.action-button button:last-child,#well-bottom a:last-child{
+    margin-left: auto;
+}
+.input-group-btn {
+    width: 15%;
+}
+.input-group,#btn-post{
+  width: 100%;
+}

@@ -1,0 +1,68 @@
+extends head
+block title
+  title Teacher
+block content
+  .outer.row
+    h2.text-center Teacher Page
+    .col-md-6.col-xs-14
+      - if(user === ''||user === undefined)
+        .alert.alert-warning you're not not in
+          a(href="javascript:void(0)",data-target="#toLogin",data-toggle="modal") login
+      form
+        .form-group.g1
+          label(for="username") name
+          input(type="text",placeholder="username",value = user).form-control#input-name
+        .form-group.g2
+          label(for="password") subject
+          .input-group
+            input(value = sbj).form-control#input-sbj
+            .input-group-btn
+              select.form-control#sbj
+                option(value="algorithm") algorithm
+                  //- a(href="javascript:void(0)") algorithm
+                option(value="computer network") computer network
+                  //- a(href="javascript:void(0)") computer network
+                option(value="ooad") ooad
+                  //- a(href="javascript:void(0)") ooad
+        .form-group.g3
+          label(for="time") time
+          .input-group
+            input(value = time).form-control#input-time
+            .input-group-btn
+              select.form-control#time
+                option(value="mid") mid
+                  //- a(href="javascript:void(0)") algorithm
+                option(value="end") end
+                  //- a(href="javascript:void(0)") computer network
+                option(value="test") test
+                  //- a(href="javascript:void(0)") ooad
+        .form-group.g4
+          label(for="password") notes (not nessary)
+          textarea(name="message", rows="3").form-control#notes
+        .form-group.g5
+          input(type="file",accept="text/plain,.pdf,.docx")#input-file
+      - if(user !== ''&&user !== undefined)
+        .form-group
+          button.btn.btn-primary#btn-post Post
+      .modal.fade(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")#toLogin
+        .modal-dialog
+          .modal-content
+            .modal-header
+              h2.text-center Please Login
+            .modal-body
+              .outer.row
+                .col-md-11.col-xs-12
+                    form
+                      .form-group.g1
+                          label(for="username") username
+                          input(type="text",placeholder="username").form-control#username
+                      .form-group.g2
+                          label(for="password") password
+                          input(type="password",placeholder="password").form-control#password
+                      .checkbox
+                          label
+                              input(type="checkbox")
+                              span remember me
+                    .action-button
+                        button.btn.btn-primary#btn-login Login
+                        button.btn.btn-default#btn-register Register
