@@ -6,9 +6,8 @@ const pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
     password: 'yang218906',
-    database: 'Mobile'
+    database: 'exam'
 })
-
 function con(user){
     return new Promise(resolve=>{
         pool.getConnection((err, connection) => {
@@ -36,16 +35,11 @@ exports.checkLogin = async (ctx,next) =>{
 }
 
 const formidable = require("formidable")
-const pool2 = mysql.createPool({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'yang218906',
-    database: 'exam'
-})
+
 
 function con2(sql) {
     return new Promise(resolve => {
-        pool2.getConnection((err, connection) => {
+        pool.getConnection((err, connection) => {
             connection.query(sql, (error, results, fields) => {
                 console.log("ok")
                 resolve(results)
