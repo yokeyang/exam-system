@@ -5,42 +5,57 @@ block content
     .outer.row
         h2.text-center Office Page
         .col-md-6.col-xs-10
-            ul.breadcrumb
-                li
-                    a(href="#teacher") Manager Teacher
-                li
-                    a(href="#paper") Manager Paper
-            
-            .tab-content
-                .tab-pane.in.active#paper
-                    for data in datas
+            - if(user === ''||user === undefined)
+                .alert.alert-warning you're not not in
+                    a(href="#",data-target="#toLogin",data-toggle="modal") login
+                include login
+            -else
+                ul.breadcrumb
+                    li
+                        a(href="#teacher") Manager Teacher
+                    li
+                        a(href="#paper") Manager Paper
+                .tab-content
+                    .tab-pane.in.active#paper
+                        for data in datas
+                            .modal.fade(tabindex="-1",role="dialog",)#delete
+                                .modal-dialog
+                                    .modal-content
+                                        .modal-body
+                                            h4 SURE TO DELETE?
+                                            .action-button
+                                                button(data-dismiss="modal").btn.btn-default Cancel
+                                                button(onclick = `delpaper(${data.id})`).btn.btn-primary Yes
+                            .well
+                                p
+                                    strong Title:
+                                    |#{data.sbj}
+                                p
+                                    strong Teacher:
+                                    |#{data.name}
+                                p
+                                    strong Time:
+                                    |#{data.time}
+                                p
+                                    strong notes:
+                                    |#{data.note}
+                                p#well-bottom
+                                    a(href = data.file target="_blank") Click to view Paper
+                                    a(href = "#",data-target="#delete",data-toggle = "modal") Click to Delete
+                    .tab-pane#teacher
                         .well
                             p
+                                strong Name:
+                                |Yoke
+                            p
                                 strong Title:
-                                |#{data.sbj}
+                                |Perfessor
                             p
-                                strong Teacher:
-                                |#{data.name}
+                                strong Age:
+                                |18
                             p
-                                strong Time:
-                                |#{data.time}
+                                strong Password:
+                                |*******
                             p#well-bottom
-                                a(href = data.file target="_blank") Click to view Paper
-                                a(href = "javascript:void(0)") Click to Delete
-                .tab-pane#teacher
-                    .well
-                        p
-                            strong Name:
-                            |Yoke
-                        p
-                            strong Title:
-                            |Perfessor
-                        p
-                            strong Age:
-                            |18
-                        p
-                            strong Password:
-                            |*******
-                        p#well-bottom
-                            a(href = "javascript:void(0)") Delete
-                            a(href = "javascript:void(0)") Change Info
+                                a(href = "javascript:void(0)") Delete
+                                a(href = "javascript:void(0)") Change Info

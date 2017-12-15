@@ -44,25 +44,4 @@ block content
       - if(user !== ''&&user !== undefined)
         .form-group
           button.btn.btn-primary#btn-post Post
-      .modal.fade(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")#toLogin
-        .modal-dialog
-          .modal-content
-            .modal-header
-              h2.text-center Please Login
-            .modal-body
-              .outer.row
-                .col-md-11.col-xs-12
-                    form
-                      .form-group.g1
-                          label(for="username") username
-                          input(type="text",placeholder="username").form-control#username
-                      .form-group.g2
-                          label(for="password") password
-                          input(type="password",placeholder="password").form-control#password
-                      .checkbox
-                          label
-                              input(type="checkbox")
-                              span remember me
-                    .action-button
-                        button.btn.btn-primary#btn-login Login
-                        button.btn.btn-default#btn-register Register
+      include login

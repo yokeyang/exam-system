@@ -1,5 +1,21 @@
 'use strict'
 
+let delpaper = (id) => {
+    $.ajax({
+        type: 'post',
+        url: '/delpaper',
+        dataType: 'json',
+        data: { id: id }
+    }).done((data) => {
+        if (data.error) {
+            alert("delete error")
+            return
+        }
+        alert("delete success")
+        window.location.reload(true)
+    })
+}
+
 window.onload = ()=>{
     $('#btn-login').click(()=>{
         let user = $('#username').val(),
@@ -16,7 +32,7 @@ window.onload = ()=>{
                 return
             }
             console.log('ok')
-            window.location.href = '/teacher'
+            window.location.reload(true)
         })
     })
     $('#sbj').change(function(){
@@ -61,7 +77,8 @@ window.onload = ()=>{
             }).done((data) => {
                 console.log('ok')
                 if (data.error) {
-                    alert("username or password error")
+                    alert("please login in")
+                    window.location.reload(true)
                     return
                 }
                 console.log('ok')
