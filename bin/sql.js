@@ -12,7 +12,6 @@ function con(sql) {
     return new Promise(resolve => {
         pool.getConnection((err, connection) => {
             connection.query(sql, (error, results, fields) => {
-                console.log("ok")
                 resolve(results)
                 if (error) throw error;
             })
@@ -51,6 +50,9 @@ exports.checkLogin = async (ctx,next) =>{
 
 exports.delpaper = async (ctx,next) =>{
     try {
+        if (ctx.user === '' || ctx.user === undefined) {
+            return ctx.body = { error: true }
+        }
         let id = ctx.request.body.id
         let result = await con(`delete from paper where id = '${id}'`)        
         await next()
@@ -60,22 +62,23 @@ exports.delpaper = async (ctx,next) =>{
 }
 
 const formidable = require("formidable")
+
 exports.checkPaper = async (ctx,next) =>{
     try {
+        console.log(`sql${ctx.user}`)
         if (ctx.user === '' || ctx.user === undefined) {
+            console.log('checkpaper')
             return ctx.body = {error:true}
         }
         let form = new formidable.IncomingForm()
         form.parse(ctx.req, async function (err, fields, files) {
             let data = fields
             data.file = files.file.name
-            console.log(files.file.path)
             fs.copyFile(files.file.path, `public/${files.file.name}`, (err)=>{
                 if (err) {
                     return console.error(err);
                 }
             })
-            console.log(data.name)
             await con(`INSERT INTO paper (name,sbj,time,file,note) values ('${data.name}','${data.sbj}','${data.time}','${data.file}','${data.notes}')`)
             if (err) { throw err; return; }
         })

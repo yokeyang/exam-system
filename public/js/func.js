@@ -3,7 +3,7 @@
 let delpaper = (id) => {
     $.ajax({
         type: 'post',
-        url: '/delpaper',
+        url: '/office',
         dataType: 'json',
         data: { id: id }
     }).done((data) => {
@@ -70,15 +70,14 @@ window.onload = ()=>{
         }else{
             $.ajax({
                 type: 'post',
-                url: '/paper',
+                url: '/teacher',
                 processData: false,
                 contentType: false,
                 data: formData
             }).done((data) => {
-                console.log('ok')
                 if (data.error) {
                     alert("please login in")
-                    window.location.reload(true)
+                    // window.location.reload(true)
                     return
                 }
                 console.log('ok')

@@ -10,7 +10,7 @@ module.exports = (router) =>{
     })
   })
 
-  router.post('/delpaper',sql.delpaper,async (ctx,next) => {
+  router.post('/office',checkcookie,sql.delpaper,async (ctx,next) => {
     ctx.body = {error:false}
   })
 }

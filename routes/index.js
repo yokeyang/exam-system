@@ -53,9 +53,8 @@ router.post('/login',sql.checkLogin, async (ctx, next) => {
     return ctx.body = error.message
   }
 })
-router.post('/paper',checkcookie, sql.checkPaper, async (ctx, next) => {
+router.post('/teacher',checkcookie, sql.checkPaper, async (ctx, next) => {
   ctx.body = ctx
-  console.log(ctx.request.body)
 })
 
 require('./office')(router)
