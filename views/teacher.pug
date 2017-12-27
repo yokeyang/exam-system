@@ -8,6 +8,10 @@ block content
       - if(user === ''||user === undefined)
         .alert.alert-warning you're not not in
           a(href="#",data-target="#toLogin",data-toggle="modal") login
+      - else
+        .alert.alert-success Click to change password
+          a(href="#",data-target="#toChgpsd",data-toggle="modal") Change
+        include chgpsd      
       form
         .form-group.g1
           label(for="username") name

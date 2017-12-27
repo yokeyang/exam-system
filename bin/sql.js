@@ -1,6 +1,7 @@
 'use strict'
 const mysql = require('mysql')
 const fs = require('fs')
+const md5 = require('./md5')
 // 创建数据池
 const pool = mysql.createPool({
     host: '127.0.0.1',
@@ -10,14 +11,15 @@ const pool = mysql.createPool({
 })
 function con(sql) {
     return new Promise(resolve => {
-        pool.getConnection((err, connection) => {
-            connection.query(sql, (error, results, fields) => {
+        // pool.getConnection((err, connection) => {
+            pool.query(sql, (error, results, fields) => {
                 resolve(results)
                 if (error) throw error;
             })
-        })
+        // }) 
     })
 }
+exports.con = con
 
 exports.checkLogin = async (ctx,next) =>{
     try {
@@ -30,17 +32,20 @@ exports.checkLogin = async (ctx,next) =>{
         let result = await con(`SELECT * FROM manager where user = '${user}'`)
         cpsd = result[0].password
         if(url === 'teacher'){
+            console.log(cpsd,psd)
             if (cpsd === psd){
+                ctx.sign = md5.md5encrypt(user,psd)
                 await next()
             }else{
-                return ctx.body = {error:true}
+                return ctx.body = {error:'password error'}
             }
         }else{
             let om = result[0].om
             if (cpsd === psd && om) {
+                ctx.sign = md5.md5encrypt(user, psd)                
                 await next()
             } else {
-                return ctx.body = { error: true }
+                return ctx.body = { error: 'your not manager' }
             }
         }
     } catch (error) {
@@ -51,13 +56,13 @@ exports.checkLogin = async (ctx,next) =>{
 exports.delpaper = async (ctx,next) =>{
     try {
         if (ctx.user === '' || ctx.user === undefined) {
-            return ctx.body = { error: true }
+            return ctx.body = { error: 'not login' }
         }
         let id = ctx.request.body.id
         let result = await con(`delete from paper where id = '${id}'`)        
         await next()
     } catch (error) {
-        return ctx.body = {error:true}
+        return ctx.body = {error:error.message}
     }
 }
 
@@ -68,7 +73,7 @@ exports.checkPaper = async (ctx,next) =>{
         console.log(`sql${ctx.user}`)
         if (ctx.user === '' || ctx.user === undefined) {
             console.log('checkpaper')
-            return ctx.body = {error:true}
+            return ctx.body = {error:'not login'}
         }
         let form = new formidable.IncomingForm()
         form.parse(ctx.req, async function (err, fields, files) {
@@ -87,11 +92,25 @@ exports.checkPaper = async (ctx,next) =>{
         return ctx.body = error.message        
     }
 }
-
 exports.getPager = async (ctx,next) =>{
     try {
         ctx.datas = await con(`select * from paper`)
         await next()
     } catch (error) {
         return ctx.body = error.message
-    }}
+    }
+}
+
+exports.changePsd = async (ctx,next) =>{
+    try {
+        let psd1 = ctx.request.body.psd1
+        let psd2 = ctx.request.body.psd2        
+        if (psd1 !== psd2){
+            return ctx.body({ error:'Inconsistencies password and confirm password!'})
+        }
+        await con(`update manager set password='${psd1}' where user='${ctx.request.body.user}'`)
+        await next()
+    } catch (error) {
+        return ctx.body = error.message
+    }
+}

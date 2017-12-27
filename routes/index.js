@@ -13,11 +13,26 @@ router.get('/teacher',checkcookie, async (ctx, next) => {
   })
 })
 
+router.post('/change',sql.checkLogin,sql.changePsd,async (ctx,next)=>{
+  ctx.body = { error: false }
+})
+
 router.post('/login',sql.checkLogin, async (ctx, next) => {
   try {
     ctx.cookies.set(
       'cid',
       ctx.request.body.user,
+      {
+        domain: 'localhost',  // 写cookie所在的域名
+        maxAge: 10 * 60 * 1000, // cookie有效时长
+        path: ctx.referer,
+        httpOnly: false,  // 是否只用于http请求中获取
+        overwrite: true  // 是否允许重写
+      }
+    )
+    ctx.cookies.set(
+      'sign',
+      ctx.sign,
       {
         domain: 'localhost',  // 写cookie所在的域名
         maxAge: 10 * 60 * 1000, // cookie有效时长
@@ -54,7 +69,7 @@ router.post('/login',sql.checkLogin, async (ctx, next) => {
   }
 })
 router.post('/teacher',checkcookie, sql.checkPaper, async (ctx, next) => {
-  ctx.body = ctx
+  ctx.body = {error:false}
 })
 
 require('./office')(router)

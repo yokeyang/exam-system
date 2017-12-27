@@ -1,0 +1,24 @@
+.modal.fade(tabindex="-1",role="dialog",aria-labelledby="myModalLabel")#toChgpsd
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h2.text-center Change password
+            .modal-body
+                .outer.row
+                    .col-md-11.col-xs-12
+                        form
+                            .form-group.g1
+                                label(for="username") username
+                                input(type="text",placeholder="username").form-control#username1
+                            .form-group.g2
+                                label(for="password") old password
+                                input(type="password",placeholder="password").form-control#psd
+                            .form-group.g3
+                                label(for="password") confrim password
+                                input(type="password",placeholder="password").form-control#psd1
+                            .form-group.g4
+                                label(for="password") password
+                                input(type="password",placeholder="password").form-control#psd2
+                        .action-button
+                            button.btn.btn-primary#btn-chgpsd Ok
+                            button(data-dismiss="modal").btn.btn-default Cancle

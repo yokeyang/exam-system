@@ -7,8 +7,8 @@ let delpaper = (id) => {
         dataType: 'json',
         data: { id: id }
     }).done((data) => {
-        if (data.error) {
-            alert("delete error")
+        if (data.error.length) {
+            alert(data.error)
             return
         }
         alert("delete success")
@@ -27,8 +27,28 @@ window.onload = ()=>{
             data: { user: user, psd: psd }
         }).done((data) => {
             console.log('ok')
-            if(data.error){
-                alert("username or password error")
+            if(data.error.length){
+                alert(data.error)
+                return
+            }
+            console.log('ok')
+            window.location.reload(true)
+        })
+    })
+    $('#btn-chgpsd').click(() => {
+        let user = $('#username1').val(),
+            psd = $('#psd').val(),
+            psd1 = $('#psd1').val(),
+            psd2 = $('#psd2').val()                         
+        $.ajax({
+            type: 'post',
+            url: '/change',
+            dataType: 'json',
+            data: { user: user, psd: psd, psd1:psd1, psd2:psd2 }
+        }).done((data) => {
+            if (data.error.length > 0) {
+                console.log(data.error)
+                alert(data.error)
                 return
             }
             console.log('ok')
@@ -75,12 +95,12 @@ window.onload = ()=>{
                 contentType: false,
                 data: formData
             }).done((data) => {
-                if (data.error) {
-                    alert("please login in")
-                    // window.location.reload(true)
+                if (data.error.length > 0) {
+                    alert(data.error)
+                    window.location.reload(true)
                     return
                 }
-                console.log('ok')
+                window.location.reload(true)
             })
         }
     })
