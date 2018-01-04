@@ -16,6 +16,48 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg` char(50) NOT NULL,
+  `user` char(20) NOT NULL,
+  `c_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `c_id` (`c_id`),
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`c_id`) REFERENCES `goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`c_id`) REFERENCES `goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `goods`
+--
+
+DROP TABLE IF EXISTS `goods`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` char(20) NOT NULL,
+  `name` char(20) NOT NULL,
+  `good` char(20) NOT NULL,
+  `type` char(20) NOT NULL,
+  `location` char(20) NOT NULL,
+  `message` char(100) NOT NULL,
+  `u_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `u_id` (`u_id`),
+  CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`u_id`) REFERENCES `manager` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `manager`
 --
 
@@ -26,19 +68,10 @@ CREATE TABLE `manager` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user` char(10) NOT NULL,
   `password` char(10) NOT NULL,
+  `om` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `manager`
---
-
-LOCK TABLES `manager` WRITE;
-/*!40000 ALTER TABLE `manager` DISABLE KEYS */;
-INSERT INTO `manager` VALUES (1,'Yoke','123456');
-/*!40000 ALTER TABLE `manager` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `paper`
@@ -53,20 +86,10 @@ CREATE TABLE `paper` (
   `sbj` varchar(10) NOT NULL,
   `time` varchar(10) NOT NULL,
   `file` varchar(100) NOT NULL,
-  `note` varchar(10) DEFAULT NULL,
+  `note` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `paper`
---
-
-LOCK TABLES `paper` WRITE;
-/*!40000 ALTER TABLE `paper` DISABLE KEYS */;
-INSERT INTO `paper` VALUES (1,'yoke','algorithm','mid','c-api.pdf','');
-/*!40000 ALTER TABLE `paper` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -77,4 +100,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-14 20:14:00
+-- Dump completed on 2018-01-04 22:04:57
