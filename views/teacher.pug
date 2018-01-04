@@ -6,18 +6,18 @@ block content
     h2.text-center Teacher Page
     .col-md-6.col-xs-14
       - if(user === ''||user === undefined)
-        .alert.alert-warning you're not not in
-          a(href="#",data-target="#toLogin",data-toggle="modal") login
+        .alert.alert-warning 你还没有登录
+          a(href="#",data-target="#toLogin",data-toggle="modal") 登录
       - else
-        .alert.alert-success Click to change password
-          a(href="#",data-target="#toChgpsd",data-toggle="modal") Change
+        .alert.alert-success 点击修改密码
+          a(href="#",data-target="#toChgpsd",data-toggle="modal") 修改
         include chgpsd      
       form
         .form-group.g1
-          label(for="username") name
+          label(for="username") 姓名
           input(type="text",placeholder="username",value = user).form-control#input-name
         .form-group.g2
-          label(for="password") subject
+          label(for="password") 科目
           .input-group
             input(value = sbj).form-control#input-sbj
             .input-group-btn
@@ -29,7 +29,7 @@ block content
                 option(value="ooad") ooad
                   //- a(href="javascript:void(0)") ooad
         .form-group.g3
-          label(for="time") time
+          label(for="time") 考试时间
           .input-group
             input(value = time).form-control#input-time
             .input-group-btn
@@ -41,7 +41,7 @@ block content
                 option(value="test") test
                   //- a(href="javascript:void(0)") ooad
         .form-group.g4
-          label(for="password") notes (not nessary)
+          label(for="password") 留言（非必须）
           textarea(name="message", rows="3").form-control#notes
         .form-group.g5
           input(type="file",accept="text/plain,.pdf,.docx")#input-file

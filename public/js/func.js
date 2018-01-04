@@ -16,6 +16,28 @@ let delpaper = (id) => {
     })
 }
 
+let chginfo = (id) => {
+    let f = `#changeinfo${id}`,
+        sbj = $(f + ` #chgsbj`).val(),
+        name = $(f + ` #chgname`).val(),
+        time = $(f + ` #chgtime`).val(),
+        note = $(f + ` #chgnotes`).val()
+    $.ajax({
+        type: 'post',
+        url: '/office/chginfo',
+        dataType: 'json',
+        data: { id:id,sbj:sbj,name:name,time:time,note:note }
+    }).done((data) => {
+        console.log('ok')
+        if (data.error.length) {
+            alert(data.error)
+            return
+        }
+        console.log('ok')
+        window.location.reload(true)
+    })
+}
+
 window.onload = ()=>{
     $('#btn-login').click(()=>{
         let user = $('#username').val(),
@@ -103,7 +125,7 @@ window.onload = ()=>{
                 window.location.reload(true)
             })
         }
-    })   
+    })
 }
 // Demonstration of multiple force acting on 
 // bodies (Mover class)
@@ -117,7 +139,7 @@ var movers = [];
 var liquid;
 
 function setup() {
-    createCanvas($('.outer').width(), window.innerHeight - 5);
+    createCanvas($('.outer').width(), window.displayHeight - 5);
     reset();
     // Create liquid object
     liquid = new Liquid(0, height / 2, width, height / 2, 0.1);

@@ -1,0 +1,27 @@
+.modal.fade(tabindex="-1",role="dialog",aria-labelledby="myModalLabel",id=`changeinfo${data.id}`)
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h2.text-center 修改试卷信息
+            .modal-body
+                .row
+                    .col-md-11.col-xs-12
+                        form
+                            .form-group.g1
+                                label(for="title") 标题
+                                input(type="text",value=data.sbj).form-control#chgsbj
+                            
+                            .form-group.g2
+                                label(for="teacher") 老师
+                                input(type="text",value=data.name).form-control#chgname
+                            
+                            .form-group.g2
+                                label(for="time") 考试时间
+                                input(type="text",value=data.time).form-control#chgtime
+                            
+                            .form-group.g3
+                                label(for="notes") 留言
+                                input(type="text",value=data.note).form-control#chgnotes
+                        .action-button
+                            button(onclick = `chginfo(${data.id})`).btn.btn-primary Ok
+                            button(data-dismiss="modal").btn.btn-default Cancle

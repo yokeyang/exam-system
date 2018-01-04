@@ -12,49 +12,51 @@ block content
             -else
                 ul.breadcrumb
                     li
-                        a(href="#teacher") Manager Teacher
+                        a(href="#teacher") 管理老师
                     li
-                        a(href="#paper") Manager Paper
+                        a(href="#paper") 管理试卷
                 .tab-content
                     .tab-pane.in.active#paper
                         for data in datas
+                            include changeinfo
                             .modal.fade(tabindex="-1",role="dialog",)#delete
                                 .modal-dialog
                                     .modal-content
                                         .modal-body
-                                            h4 SURE TO DELETE?
+                                            h4 确认删除？
                                             .action-button
                                                 button(data-dismiss="modal").btn.btn-default Cancel
                                                 button(onclick = `delpaper(${data.id})`).btn.btn-primary Yes
                             .well
+                                a(href = '#',data-target=`#changeinfo${data.id}`,data-toggle = "modal") 点击修改信息  
                                 p
-                                    strong Title:
-                                    |#{data.sbj}
+                                    strong 标题:
+                                    |#{data.sbj}                                  
                                 p
-                                    strong Teacher:
+                                    strong 老师:
                                     |#{data.name}
                                 p
-                                    strong Time:
+                                    strong 考试时间:
                                     |#{data.time}
                                 p
-                                    strong notes:
+                                    strong 留言:
                                     |#{data.note}
                                 p#well-bottom
-                                    a(href = data.file target="_blank") Click to view Paper
-                                    a(href = "#",data-target="#delete",data-toggle = "modal") Click to Delete
+                                    a(href = data.file target="_blank") 点击预览试卷
+                                    a(href = "#",data-target="#delete",data-toggle = "modal") 点击删除
                     .tab-pane#teacher
                         .well
                             p
-                                strong Name:
+                                strong 姓名:
                                 |Yoke
                             p
-                                strong Title:
+                                strong 职称:
                                 |Perfessor
                             p
-                                strong Age:
+                                strong 年龄:
                                 |18
                             p
-                                strong Password:
+                                strong 密码:
                                 |*******
                             p#well-bottom
                                 a(href = "javascript:void(0)") Delete

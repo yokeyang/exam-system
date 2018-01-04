@@ -66,6 +66,26 @@ exports.delpaper = async (ctx,next) =>{
     }
 }
 
+exports.chginfo = async (ctx,next) =>{
+    try {
+        if (ctx.user === '' || ctx.user === undefined) {
+            return ctx.body = { error: 'not login' }
+        }
+        let id = ctx.request.body.id
+        for (let data in ctx.request.body){
+            if (data !== 'id'){
+                console.log(data)
+                await con(
+                    `update paper set ${data} = '${ctx.request.body[data]}' where id = ${id}`
+                )
+            }
+        }
+        await next()
+    } catch (error) {
+        return ctx.body = { error: error.message }
+    }
+}
+
 const formidable = require("formidable")
 
 exports.checkPaper = async (ctx,next) =>{
