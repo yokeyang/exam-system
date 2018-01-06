@@ -3,7 +3,7 @@ block title
     title Office
 block content
     .outer.row
-        h2.text-center Office Page
+        h2.text-center 教务处管理
         .col-md-6.col-xs-10
             - if(user === ''||user === undefined)
                 .alert.alert-warning you're not not in
@@ -11,10 +11,10 @@ block content
                 include login
             -else
                 ul.breadcrumb
-                    li
-                        a(href="#teacher") 管理老师
-                    li
-                        a(href="#paper") 管理试卷
+                    li 标题
+                    li 老师
+                    li 考试时间
+                    li 留言                 
                 .tab-content
                     .tab-pane.in.active#paper
                         for data in datas
@@ -27,37 +27,21 @@ block content
                                             .action-button
                                                 button(data-dismiss="modal").btn.btn-default Cancel
                                                 button(onclick = `delpaper(${data.id})`).btn.btn-primary Yes
-                            .well
-                                a(href = '#',data-target=`#changeinfo${data.id}`,data-toggle = "modal") 点击修改信息  
-                                p
-                                    strong 标题:
-                                    |#{data.sbj}                                  
-                                p
-                                    strong 老师:
-                                    |#{data.name}
-                                p
-                                    strong 考试时间:
-                                    |#{data.time}
-                                p
-                                    strong 留言:
-                                    |#{data.note}
-                                p#well-bottom
-                                    a(href = data.file target="_blank") 点击预览试卷
-                                    a(href = "#",data-target="#delete",data-toggle = "modal") 点击删除
-                    .tab-pane#teacher
-                        .well
-                            p
-                                strong 姓名:
-                                |Yoke
-                            p
-                                strong 职称:
-                                |Perfessor
-                            p
-                                strong 年龄:
-                                |18
-                            p
-                                strong 密码:
-                                |*******
-                            p#well-bottom
-                                a(href = "javascript:void(0)") Delete
-                                a(href = "javascript:void(0)") Change Info
+                            .breadcrumb#well-bottom
+                                //- a(href = '#',data-target=`#changeinfo${data.id}`,data-toggle = "modal") 点击修改信息  
+                                li #{data.sbj}                                  
+                                li #{data.name}
+                                li #{data.time}
+                                li #{data.note}
+                                .dropdown
+                                    button#dropdownMenu1.btn.dropdown-toggle(type='button', data-toggle='dropdown') 操作
+                                    ul.dropdown-menu(role='menu')
+                                        li(role='presentation')
+                                            a(href = '#',role="menuitem",tabindex="-1",data-target=`#changeinfo${data.id}`,data-toggle = "modal") 点击修改信息  
+                                        li(role='presentation')
+                                            a(href = data.file ,tabindex="-1",target="_blank") 点击预览试卷
+                                        li(role='presentation')
+                                            a(href = "#",role="menuitem",tabindex="-1",data-target="#delete",data-toggle = "modal") 点击删除
+                                //- p#well-bottom
+                                //-     a(href = data.file target="_blank") 点击预览试卷
+                                //-     a(href = "#",data-target="#delete",data-toggle = "modal") 点击删除

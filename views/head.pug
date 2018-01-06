@@ -14,5 +14,15 @@ html
         block title
             title exam_system
     body
-        block content
-            p welcome to exam_system
+        nav.navbar.navbar-default(role='navigation')
+            .container-fluid
+                .navbar-header
+                a.navbar-brand(href='/') 试卷管理系统
+                div
+                    ul.nav.navbar-nav
+                        li
+                            a(href='/teacher') 教师页
+                        li
+                            a(href='/office') 教务处页       
+            block content
+                p welcome to exam_system

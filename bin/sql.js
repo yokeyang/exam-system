@@ -6,7 +6,7 @@ const md5 = require('./md5')
 const pool = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
-    password: 'yang218906',
+    password: '218906',
     database: 'exam'
 })
 function con(sql) {
@@ -99,6 +99,7 @@ exports.checkPaper = async (ctx,next) =>{
         form.parse(ctx.req, async function (err, fields, files) {
             let data = fields
             data.file = files.file.name
+            console.log(files.file.name)
             fs.copyFile(files.file.path, `public/${files.file.name}`, (err)=>{
                 if (err) {
                     return console.error(err);

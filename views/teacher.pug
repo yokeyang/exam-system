@@ -3,7 +3,7 @@ block title
   title Teacher
 block content
   .outer.row
-    h2.text-center Teacher Page
+    h2.text-center
     .col-md-6.col-xs-14
       - if(user === ''||user === undefined)
         .alert.alert-warning 你还没有登录
@@ -19,26 +19,26 @@ block content
         .form-group.g2
           label(for="password") 科目
           .input-group
-            input(value = sbj).form-control#input-sbj
+            input(value = '算法').form-control#input-sbj
             .input-group-btn
               select.form-control#sbj
-                option(value="algorithm") algorithm
+                option(value="算法") 算法
                   //- a(href="javascript:void(0)") algorithm
-                option(value="computer network") computer network
+                option(value="计算机网络") 计算机网络
                   //- a(href="javascript:void(0)") computer network
-                option(value="ooad") ooad
+                option(value="面向对象方法学") 面向对象方法学
                   //- a(href="javascript:void(0)") ooad
         .form-group.g3
           label(for="time") 考试时间
           .input-group
-            input(value = time).form-control#input-time
+            input(value = '期中').form-control#input-time
             .input-group-btn
               select.form-control#time
-                option(value="mid") mid
+                option(value="mid") 期中
                   //- a(href="javascript:void(0)") algorithm
-                option(value="end") end
+                option(value="end") 期末
                   //- a(href="javascript:void(0)") computer network
-                option(value="test") test
+                option(value="test") 测试
                   //- a(href="javascript:void(0)") ooad
         .form-group.g4
           label(for="password") 留言（非必须）

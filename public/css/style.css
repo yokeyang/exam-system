@@ -30,7 +30,7 @@ a {
   display: flex;
   flex-direction: row;
 }
-.action-button button:last-child,#well-bottom a:last-child{
+.action-button button:last-child,#well-bottom a:last-child,.dropdown{
     margin-left: auto;
 }
 .input-group-btn {
@@ -39,3 +39,11 @@ a {
 .input-group,#btn-post{
   width: 100%;
 }
+/* #paper{
+  display: flex;
+  flex-wrap: wrap;
+}
+.well{
+  width: 48%;
+  margin: 1%;
+} */
